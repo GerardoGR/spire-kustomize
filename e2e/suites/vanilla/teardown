@@ -1,0 +1,12 @@
+#!/bin/bash
+
+source init-kubectl
+
+if [ -z "$SUCCESS" ]; then
+   kubectl -nspire logs deployment/spire-server --all-containers || true
+   kubectl -nspire logs daemonset/spire-agent --all-containers || true
+   kubectl -nspire logs deployment/example-workload --all-containers || true
+fi
+
+export KUBECONFIG=
+kubectl -n spire delete deployment example-workload

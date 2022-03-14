@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Based off: https://github.com/spiffe/spire/blob/main/test/integration/common
+
+norm=$(tput sgr0) || true
+red=$(tput setaf 1) || true
+green=$(tput setaf 2) || true
+yellow=$(tput setaf 3) || true
+bold=$(tput bold) || true
+
+timestamp() {
+    date -u "+[%Y-%m-%dT%H:%M:%SZ]"
+}
+
+log-info() {
+    echo "${bold}$(timestamp) $*${norm}"
+}
+
+log-warn() {
+    echo "${yellow}$(timestamp) $*${norm}"
+}
+
+log-success() {
+    echo "${green}$(timestamp) $*${norm}"
+}
+
+log-debug() {
+    echo "${norm}$(timestamp) $*"
+}
+
+fail-now() {
+    echo "${red}$(timestamp) $*${norm}"
+    exit 1
+}
